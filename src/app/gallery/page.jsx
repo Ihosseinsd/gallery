@@ -1,9 +1,11 @@
-import React from "react";
-import { Linkedin, Twitter, Instagram } from "lucide-react";
+"use client";
+import React, { useState } from "react";
+import { Linkedin, Twitter, Instagram, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function GalleryPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const column1 = [
     {
       src: "/d6707d1defcb745efce907d21b08722b327fec59.png",
@@ -52,14 +54,15 @@ export default function GalleryPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="bg-white text-black border-b border-gray-200 shadow-sm">
-        <div className="max-w-6xl mx-auto px-34 py-4 pl-0 pr-0">
+      <nav className="bg-white text-black border-b border-gray-200 shadow-sm relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className=" font-bold font-['Abhaya_Libre'] w-[170px] h-[39px] text-[34px]">
+            <div className="font-bold font-['Abhaya_Libre'] w-auto sm:w-[170px] h-auto sm:h-[39px] text-2xl sm:text-[34px]">
               Art Gallery
             </div>
-            <div className=" md:flex space-x-8 text-sm font-['Geist']">
-            <Link href="/" className="text-gray-700 hover:text-gray-900">
+            {/* Desktop Menu */}
+            <div className="hidden md:flex space-x-4 lg:space-x-8 text-sm font-['Geist']">
+              <Link href="/" className="text-gray-700 hover:text-gray-900">
                 Home
               </Link>
               <Link href="#" className="text-gray-700 hover:text-gray-900">
@@ -78,33 +81,94 @@ export default function GalleryPage() {
                 Contact
               </Link>
             </div>
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden text-gray-700 hover:text-gray-900 focus:outline-none"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
           </div>
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 border-t border-gray-200">
+              <div className="flex flex-col space-y-4 pt-4 text-sm font-['Geist']">
+                <Link
+                  href="/"
+                  className="text-gray-700 hover:text-gray-900 py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="#"
+                  className="text-gray-700 hover:text-gray-900 py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  About Us
+                </Link>
+                <Link
+                  href="/team"
+                  className="text-gray-700 hover:text-gray-900 py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Our Team
+                </Link>
+                <Link
+                  href="/internationalProjects"
+                  className="text-gray-700 hover:text-gray-900 py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  International Projects
+                </Link>
+                <Link
+                  href="/gallery"
+                  className="text-gray-700 hover:text-gray-900 py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Gallery
+                </Link>
+                <Link
+                  href="/contactUs"
+                  className="text-gray-700 hover:text-gray-900 py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* Header Section */}
-      <section className="bg-gray-100 text-black py-12">
-        <div className="max-w-7xl mx-auto px-6">
-          <h1 className="text-5xl font-serif font-bold text-center">Gallery</h1>
+      <section className="bg-gray-100 text-black py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-center">Gallery</h1>
         </div>
       </section>
 
       {/* Gallery Grid */}
-      <section className="py-16 ">
+      <section className="py-8 sm:py-16 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="flex gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-16">
             {/* COLUMN 1 */}
-            <div className="flex w-[340px]  flex-col gap-10">
+            <div className="flex flex-col gap-8 sm:gap-10">
               <div className="w-full">
-                <img src={column1[0].src} alt="" className="w-full h-[281px]" />
-                <p className="h-[80px] font-medium text-black text-[32px] font-['Geist'] mt-10 leading-tight">
+                <img src={column1[0].src} alt="" className="w-full h-auto object-cover" />
+                <p className="font-medium text-black text-xl sm:text-2xl lg:text-[32px] font-['Geist'] mt-6 sm:mt-10 leading-tight">
                   Lady With Blue Eyes And White Hat
                 </p>
               </div>
 
               <div className="w-full">
-                <img src={column1[1].src} alt="" className="w-full h-[340px]" />
-                <p className="w-full h-[80px] font-medium text-black font-['Geist'] text-[32px] mt-10 leading-tight">
+                <img src={column1[1].src} alt="" className="w-full h-auto object-cover" />
+                <p className="w-full font-medium text-black font-['Geist'] text-xl sm:text-2xl lg:text-[32px] mt-6 sm:mt-10 leading-tight">
                   Mademoiselle Pogány Brancusi Masterpiece
                 </p>
               </div>
@@ -113,73 +177,73 @@ export default function GalleryPage() {
                 <img
                   src={column1[2].src}
                   alt=""
-                  className="w-full h-[510px] object-cover object-center"
+                  className="w-full h-auto object-cover object-center"
                 />
-                <p className="w-full h-[80px] font-medium text-black font-['Geist'] text-[32px] mt-10 leading-tight">
+                <p className="w-full font-medium text-black font-['Geist'] text-xl sm:text-2xl lg:text-[32px] mt-6 sm:mt-10 leading-tight">
                   Lady With Blue Eyes And White Hat
                 </p>
               </div>
             </div>
 
             {/* COLUMN 2 */}
-            <div className="flex w-[340px] flex-col gap-10">
+            <div className="flex flex-col gap-8 sm:gap-10">
               <div className="w-full">
-                <img src={column2[0].src} alt="" className="w-full h-[655px]" />
-                <p className="w-full h-[80px] font-medium text-black font-['Geist'] text-[32px] mt-10 leading-tight">
+                <img src={column2[0].src} alt="" className="w-full h-auto object-cover" />
+                <p className="w-full font-medium text-black font-['Geist'] text-xl sm:text-2xl lg:text-[32px] mt-6 sm:mt-10 leading-tight">
                   The Orchard – British Pastel Painting
                 </p>
               </div>
 
               <div className="w-full">
-                <img src={column2[1].src} alt="" className="w-full h-[266px]" />
-                <p className="w-full h-[40px] font-medium text-black font-['Geist'] text-[32px] mt-10 leading-tight">
+                <img src={column2[1].src} alt="" className="w-full h-auto object-cover" />
+                <p className="w-full font-medium text-black font-['Geist'] text-xl sm:text-2xl lg:text-[32px] mt-6 sm:mt-10 leading-tight">
                   The Master At Work
                 </p>
               </div>
 
-              <div>
+              <div className="w-full">
                 <img
                   src={column2[2].src}
                   alt=""
-                  className="w-[340px] h-[340px]"
+                  className="w-full h-auto object-cover"
                 />
-                <p className="w-[340px] h-[80px] font-medium font-['Geist'] text-black text-[32px] mt-10 leading-tight">
+                <p className="w-full font-medium font-['Geist'] text-black text-xl sm:text-2xl lg:text-[32px] mt-6 sm:mt-10 leading-tight">
                   The Orchard – British Pastel Painting
                 </p>
               </div>
             </div>
 
             {/* COLUMN 3 */}
-            <div className="flex flex-col gap-10">
-              <div>
+            <div className="flex flex-col gap-8 sm:gap-10">
+              <div className="w-full">
                 <img
                   src={column3[0].src}
                   alt=""
-                  className="w-[340px] h-[340px]"
+                  className="w-full h-auto object-cover"
                 />
-                <p className="p-4 font-medium font-['Geist'] text-black text-[32px] mt-10 leading-tight">
+                <p className="font-medium font-['Geist'] text-black text-xl sm:text-2xl lg:text-[32px] mt-6 sm:mt-10 leading-tight">
                   The Master At Work
                 </p>
               </div>
 
-              <div>
+              <div className="w-full">
                 <img
                   src={column3[1].src}
                   alt=""
-                  className="w-[340px] h-[255px]"
+                  className="w-full h-auto object-cover"
                 />
-                <p className="w-[340px] h-[40px] font-medium font-['Geist'] text-black text-[32px] mt-10 leading-tight">
+                <p className="w-full font-medium font-['Geist'] text-black text-xl sm:text-2xl lg:text-[32px] mt-6 sm:mt-10 leading-tight">
                   Lady With Blue Eyes And White Hat
                 </p>
               </div>
 
-              <div>
+              <div className="w-full">
                 <img
                   src={column3[2].src}
                   alt=""
-                  className="w-[340px] h-[446px]"
+                  className="w-full h-auto object-cover"
                 />
-                <p className="w-[340px] h-[80px] font-medium font-['Geist'] text-black text-[32px] mt-10 leading-tight">
+                <p className="w-full font-medium font-['Geist'] text-black text-xl sm:text-2xl lg:text-[32px] mt-6 sm:mt-10 leading-tight">
                   Mademoiselle Pogány Brancusi Masterpiece
                 </p>
               </div>
@@ -190,9 +254,9 @@ export default function GalleryPage() {
 
       {/* Footer */}
       <footer className="bg-black text-white py-3">
-        <div className="max-w-6xl mx-auto">
-          <div className="pt-[41px] pb-[39px] border-b border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-            <div className="flex text-[18px] font-normal space-x-8 text-[#FFFFFF] mb-4 md:mb-0 font-['Geist']">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="pt-8 sm:pt-[41px] pb-8 sm:pb-[39px] border-b border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+            <div className="flex flex-wrap justify-center text-sm sm:text-[18px] font-normal space-x-4 sm:space-x-8 text-[#FFFFFF] mb-4 md:mb-0 font-['Geist']">
               <a href="#">Home</a>
               <a href="#">International Projects</a>
               <a href="#">Gallery</a>
@@ -207,11 +271,11 @@ export default function GalleryPage() {
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-            <div className="flex items-center mt-10 gap-8">
-              <h3 className="text-[36px] font-['Abhaya_Libre'] text-[#B89E4F] font-bold">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center mt-6 sm:mt-10 gap-4 sm:gap-8">
+              <h3 className="text-2xl sm:text-3xl lg:text-[36px] font-['Abhaya_Libre'] text-[#B89E4F] font-bold">
                 Art Gallery
               </h3>
-              <p className="text-[#7A7A7A] font-['Geist'] text-[18px] font-normal">
+              <p className="text-[#7A7A7A] font-['Geist'] text-sm sm:text-base lg:text-[18px] font-normal">
                 "Art Gallery is a personal space showcasing local and diverse
                 that inspire creativity, add lots of taste and."
               </p>
